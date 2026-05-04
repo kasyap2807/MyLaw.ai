@@ -167,6 +167,24 @@ from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, field_validator
 from dotenv import load_dotenv
 
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+origins = [
+    "http://localhost:8080",  # React dev server
+    "http://127.0.0.1:3000",
+    "https://yourdomain.com",  # production frontend
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,        # allowed domains
+    allow_credentials=True,
+    allow_methods=["*"],          # GET, POST, PUT, DELETE
+    allow_headers=["*"],          # all headers
+)
+
 # ── Load .env ─────────────────────────────────────────────────────────────────
 load_dotenv()
 
